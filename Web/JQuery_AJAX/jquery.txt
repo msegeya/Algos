@@ -1,0 +1,425 @@
+--------------------------------------------------------------------------------------------
+- What is JQuery?
+It is a JavaScript library. 
+It is a light weight "Write less, do more" library.
+It uses $ as a short hand notation.
+--------------------------------------------------------------------------------------------
+- Difference between .js and .min.js
+.js is production
+.min.js is deployement. .min.js is basically the minified version that means it has the same functionality but the size is small.
+--------------------------------------------------------------------------------------------
+- How to check whether jQuery is loaded or not? Also if loaded then give the version.
+==> In the head tag write the following,
+		<script>
+			if(typeof jQuery === 'undefined') {
+				alert("Not loaded");
+			} else {
+				alert("loaded and version = " + jQuery.fn.jquery);		
+			}
+		</script>
+
+- What are the features of JQuery?
+	*) Easily update elements data/styles
+	*) Easily retrieve data from respective elements.
+	*) AJAX support
+	*) Event Handling
+	*) Large pool of inbuilt methods.
+
+- Does jQuery follow W3C recommandation?
+NO	
+
+- When do we get "jQuery is not defined" or "$ is not found."
+	*) May be jQuery library is not loaded.
+	*) You have included but it is after your jQuery code.
+	*) Order of scripts that are included are not correct.
+--------------------------------------------------------------------------------------------
+- Will jQuery work for XML also along with HTML?
+  NO. jQuery works only for HTML.
+--------------------------------------------------------------------------------------------
+- Can we have multiple $(document).ready(..) functions inside a js file?
+YES
+--------------------------------------------------------------------------------------------
+- Difference between onload() and document.ready()?
+document.ready() .. just waits until DOM is loaded.
+onload() .. waits until DOM, images and other necessary resources are completely loaded.
+--------------------------------------------------------------------------------------------
+- What is CDN?
+CDN stands for Contenet Distribution Network.
+The goal of CDN is to server the enduser with high availability and high performance.
+--------------------------------------------------------------------------------------------
+- jQuery find vs children?
+		find - Will search all levels down the DOM tree.
+	children - Searches single level down the DOM tree.
+--------------------------------------------------------------------------------------------
+- jQuery Connect?
+  jQuery connect is used to connect one function with another function.
+--------------------------------------------------------------------------------------------
+- JQuery Selectors
+There are many ways to select a element like name, id, class-name, universal(*) etc.
+
+$("*") 					- Select **All** elements.
+$("#myIdName") 			- Select **an** element with id as "myIdName"
+$(".myClassName")		- Select **All** element(s) with class name as "myClassName"
+$("p")					- Select **All** p elements 
+$("div")				- Select **All** div elements 
+--------------------------------------------------------------------------------------------
+- What does the following mean?
+	$("div")		- All div elements in the page.	
+	$("div.java") 	- All div elements which have class "java"
+	$(".java")		- All elements with class "java"
+--------------------------------------------------------------------------------------------
+- How does a selector actually work?
+ ==> When we say $("div.java") => It will come from back. 
+ 	1) Get all the element with "java" and then choose only the elements that are having "div" tag.
+--------------------------------------------------------------------------------------------
+- What are fastest and slowest selectors in JQuery?
+Fastest - ID and element selectors are the fastest selectors.
+Slowest - class selectors are the slowest selectors.
+---------------------------------------------------------------------------------------------
+- Which of the following is fastest?
+JQuery's $("#elementId") or document.getElementById("elementId");
+
+==> document.getElementById("elementId") since even when you use JQuery it will still call document.getElementById() internally. 
+So calling it directly will be the fastest way.
+--------------------------------------------------------------------------------------------
+- Solve the following. Get the following div's which has class "questions" and color them in red.
+	*) 1st div
+	*) 4th div
+	*) last div
+	*) last to second element
+	*) even div's
+	*) odd div's
+
+
+In simple we can use,
+	*) first() to get first element, 
+	*) last() to get last element, 
+	*) $("div.question").eq(4) to get 4th element, 
+	*) .eq(total - 2) to get the last to second element. where total = $("div.question").length
+	*) For even/odd use nth-child
+
+Refer: Algos/Web/JQuery/Examples/select_nth_element.html
+--------------------------------------------------------------------------------------------
+- What is chaining in JQeury?
+	Suppose we have to do 2 or more operations like change background color, increase font size, fadeIn. 
+	Then what we normally do is,
+		1) $("#myName").css("background", "yellow");
+		2) $("#myName").css("font-size", 16);
+
+	But we can do all the steps in chain as below,
+		$("#myName").css("background", "yellow")
+					.css("font-size", 16);
+
+	Is chaining fast?
+	YES. If we use in conventional way then jQuery everytime has to search for this element and apply the respective css where as using chining we already to whcih element we need to apply the css so we do it without need to search again and again.
+
+Refer: Algos/Web/JQuery/Examples/chaining.html
+--------------------------------------------------------------------------------------------
+- How to set datepicker to input box?
+==> <input type="text" id="d" />
+
+	In jquery,
+		$("#d").datepicker();
+--------------------------------------------------------------------------------------------
+- How to apply different colors to even and odd rows in a table?
+We have already seen how to color for a given child element.
+
+	$("tr:even").css("background-color", "yellow");
+	$("tr:odd").css("background-color", "grey");
+Which means get all the tr rows and based on even/odd do the coloring.
+
+Refer: Algos/Web/JQuery/Examples/table_even_odd_color.html
+--------------------------------------------------------------------------------------------
+- How to hide elements?
+==> Use .hide();
+	$("#myElement").hide();
+--------------------------------------------------------------------------------------------
+How to add/remove class?
+Add class 		- $("myElement").addClass("<class_name>");
+Remove class 	- $("myElement").removeClass("<class_name>");
+--------------------------------------------------------------------------------------------
+- What is the use of attr method in jQeury?
+The attr() method sets or returns attributes and values of the selected elements.
+
+Examples:
+	*) Return the value of an attribute
+		$("#myElement").attr("width");
+	*) Set value to an attribute
+		$("#myElement").attr("width", 500);
+	*) Set multiple attribute values.
+		$("#myElement").attr({"width" : 500, "height" : 500}});
+
+- Difference between attr() and prop()?
+	prop() - Get the value of a property for the first element in the set of matched elements or set one or more properties for every matched element.
+	attr() - Get the value of an attribute for the first element in the set of matched elements or set one or more attributes for every matched element.
+
+	Consider example, 
+		<input id="demo" type="text" value="TechBrij" />
+	Now change the value to "jQuery" in the UI and do a reload.	You will see that the property value in the DOM changes but the attribte value remains the same.
+
+	*) In simple,  In wide sense, the property always represents the current state while the attribute (except in old versions of IE) represents the initial state or is meant for html attributes as they are strictly defined. The attribute tells you nothing about the current state.
+	*) Always use prop instead of attr(). Since we need the latest value not the one initially.
+	*) attr() method calls prop() internally so attr() will be slow.
+	*) <input id="check1" checked="checked" type="checkbox" />
+		.attr('checked') //returns checked
+		.prop('checked') //returns true
+
+NOTE: Refer image in JQuery/attr_prop.png
+Refer: Algos/Web/JQuery/Examples/attr_prop.html
+--------------------------------------------------------------------------------------------
+- Can we use jQuery and AJAX together? If yes how?
+==> Yes. 
+==> jQuery.ajax(..); (which is same as $.ajax(..))
+
+- What are various methods to make ajax request?
+	$.ajax() - Used to perform AJAX (asynchronous HTTP request).
+		    $.ajax({
+			  url: 'mypage.html',
+			  type: 'POST',
+			  data: somedata,
+			  datatype: json
+			  success: someSuccessFunc(),
+			  error: someFailureFunc()
+			});
+
+	$.get() - Load data from the server using HTTP GET request.
+			$.get("demo_test.htm", function(data, status){
+		        alert("Data: " + data + "\nStatus: " + status);
+		    });
+
+	$.post() - This Method requests data from the server using an HTTP POST request.
+			$.post("demo_test_post.asp",
+		    {
+		        name: "Donald Duck",
+		        city: "Duckburg"
+		    },
+		    function(data, status){
+		        alert("Data: " + data + "\nStatus: " + status);
+		    });
+
+	$.getJSON() - The getJSON() method is used to get JSON data using an AJAX HTTP GET request.
+			$.getJSON("demo_ajax_json.js", function(result) {
+		        $.each(result, function(i, field){
+		            $("div").append(field + " ");
+		        });
+		    });
+
+	$.getScript() - The getScript() method is used to get and execute a JavaScript using an AJAX HTTP GET request.
+			 $.getScript("demo_ajax_script.js");
+
+	$.load() - The load() method loads data from a server and puts the returned data into the selected element.
+			$("#div1").load("demo_test.txt"); // will put the content in demo_test.txt into the "#div" element.
+
+- $.get() vs $.post() vs $.ajax()
+  *) By using jQuery post() or jQuery get(), you always trust the response from the server and you believe it is going to be successful all the time.
+  *) Where jQuery.ajax() is jQuery's low-level AJAX implementation. $.get and $.post are higher-level abstractions that are often easier to understand and use, but don't offer as much functionality.
+
+- Can we run multiple AJAX calls at the same time?
+  YES. AJAX calls are asynchronous so calling them each will be independent of each other.
+
+- How to sunchronize AJAX calls?
+  Make the second AJAX call insdie the first AJAX call. That is, when we make the first AJAX call we have success and error. If success then call another function where we write another AJAX call. And this chain can be continued.
+--------------------------------------------------------------------------------------------
+- What is the use of jQuery load?
+==> load method is a poerful AJAX method. It load data from the server and puts the data into the respective element.
+Example: $("#myDiv").load("file.txt");
+		 The above example will load the file content and put them under the myDiv element.
+--------------------------------------------------------------------------------------------
+- Can we alias $ in jquery?
+==> Yes. 
+    var xxx = $.noConflict();
+
+    Now, xxx acts as $. We can do the same operations which we do with $.
+    xxx(document).ready(function() {
+    	xxx("myButton").click(fucntion() {
+    		// do soemthing
+    	});
+    });
+--------------------------------------------------------------------------------------------
+- Name some events in jQuery?
+	*) click or bind
+	*) focus()
+	*) hover()
+	*) mouse(enter/leave/down/up)()
+	*) key(press/down/up)()
+	*) load()
+	*) submit()
+	*) scroll()
+	*) dblclick()
+--------------------------------------------------------------------------------------------
+- Differece between "this" vs "$(this)"
+ this and $(this) refers to same element. The only difference is when you wrap this inside jQuery you will be able to use the power of jQuery.
+--------------------------------------------------------------------------------------------
+- How to check whether an element is empty or not?
+  There are two ways, 
+  1) if($("selector").is(":empty")) { // do something. }
+  2) if($.trim($("selector").html()) == '') { // do something. }	 
+
+ Second approach is more reliable in Chrome and Firefox. 
+--------------------------------------------------------------------------------------------
+- How to check whether an element exists or not?
+ => Just check whether the count of that selector is more than 0 or not.
+ 	$("length").length > 0
+--------------------------------------------------------------------------------------------
+- jQuery .each() method example
+Refer: Algos/Web/JQuery/Examples/each_jquery.html
+--------------------------------------------------------------------------------------------
+- Difference between .size() and length
+ .size() and length will return the same result that is the number of elements.
+ But size() is a method so there is an overhead call where as length is an attribute so it will be fast.
+
+ Example: $("li").size() or $("li").length
+--------------------------------------------------------------------------------------------
+- Difference between parent and parents?
+	parent() will return the parent of the selected element. Only one level above in the DOM tree.
+	parents() will return all the ancestors of the selected element. All the above levels.
+
+	Ex: $("#row_2").parent().<do some operations>
+		$("#row_2").parents().<do some operations>
+--------------------------------------------------------------------------------------------
+- Difference between eq() and get() in jQuery?
+  Both returns the same output but the way they are returned is different.
+
+  eq() - will return the output as a jQuery object such that we can apply jQuery methods on it.
+  get() - will return just a DOM element. So we cannot perform any functions on it.
+
+  $("li").eq(1).css("background-color", "red"); // works fine. Since the eq() will wrap the output inside a jQuery object and return it. So we can perform jqeury operations on it.
+
+  $("li").get(1).css("background-color", "red"); // throws error. Since the get() will return a raw DOM element.
+--------------------------------------------------------------------------------------------
+- What are the different ways to add click functionalities to a button?
+	$("#myButton").click( function() { })
+	$("#myButton").on('click', function() { .. })
+	$("#myButton").bind('click', function() {.. })
+--------------------------------------------------------------------------------------------
+- Difference between jQuery.click() and onClick?
+	jQuery.click() - separates the JS code from HTML code which means it is the best to do.
+	onClick="doSomething()" - includes JS code within HTML. Not preffered.
+
+	But both perform the same way. It matters only with code separation.
+--------------------------------------------------------------------------------------------
+- How to animate functionality?
+	$("myButton").click(function() {
+		$(".divBox").animate({"height" : "100px"});
+	});
+
+- How to disable jQuery animation?
+	jQuery.fx.off
+
+- How to stop a running animation?
+	jQuery.stop		
+
+- What is .finish() method?
+ 	The .finish() method stops all queued animations and places the element(s) in their final state.
+
+- stop vs finish
+	.stop is same as .finish(). But finish() causes all the CSS property of the queued animations to their end values.
+--------------------------------------------------------------------------------------------
+- Difference between empty(), remove() and detach()
+	empty() -  Removes all the child elements of the matched selector. 
+			   It won'te remove the element but the contents/child elements.
+	remove() - Removes the element also along with the child elements and content.
+	detach() - Same as remove but keeps the copy of the data of the child elements or content such that they can be reused again.
+Refer: Algos/Web/JQuery/Examples/empty_remove_detach.html
+--------------------------------------------------------------------------------------------
+- bind() vs live() vs delegate() vs on()
+	All the above 4 methods are used to attaching events to elements or selectors.
+
+		bind() - Easiest of all. But issue with this method is it does not work for elements that are added dynamically. 
+				 Only works for elements that are present in the current DOM not in future elements.
+
+				 $( "#members li a" ).bind( "click", function( e ) {} ); 
+
+		live() - This one overcomes the disadvantages of the bind() method that is it can attach events for dynamic elements also.
+				 But it has poor performance on large pages. It is deprecated in jQuery 1.7. Also chaining is not properly supported.
+
+				 $( "#members li a" ).live( "click", function( e ) {} );
+
+	delegate() - delegate() is same as live() method but instead of attaching the selector/element information to document you choose whether it is anchored. 
+				 Chaining is supported.
+				 
+				 $( "#members" ).delegate( "li a", "click", function( e ) {} );	
+
+		  on() - This method provides all the goodness of previous 3 methods and it brings uniformity for attaching event handlers.
+
+		  		 $( "#dataTable tbody tr" ).on( "click", function() { console.log( $( this ).text() ); });
+		  		 or 
+		  		 $( "#dataTable tbody" ).on( "click", "tr", function() { console.log( $( this ).text() ); });
+--------------------------------------------------------------------------------------------
+- What is wrong with the line "$('#myid.3').text('blah blah!!!');" ?
+  Here the selector is "myid.3" but to use any of the meta-characters like "!"#$%&'()*+,./:;<=>?@[\]^`{|}~" as a literal part of the name we must use escape characters. So we will change the selector by appending escape characters. => "$('#myid\\.3').text('blah blah!!!');"
+--------------------------------------------------------------------------------------------
+- How do we clone an object in jQuery?
+	Clone is a depp copy of elements where only matched elements are copied.
+	var cloneObj = $("#myDiv").clone();
+	// append the clone to body
+	$("#myDiv").appendTo('body');
+
+  What if you want to clone events also along with the elements?
+  	=> Just add clone(true);
+  	var cloneObj = $("#myDiv").clone(true);
+	$("#myDiv").appendTo('body');  	
+--------------------------------------------------------------------------------------------
+- What is event.preventDefault() ?
+  Stops the default action of an element from happening. The code would append the href attribute as text to the body everytime the link is clicked but actually not go to that link.
+  Ex: $("a").click(function(event){
+	    event.preventDefault();
+	  });
+
+- event.PreventDefault() vs event.stopPropagation()
+	event.preventDefault(): Stops the default action of an element from happening.
+	event.stopPropagation(): Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event. For example, if there is a link with a click method attached inside of a DIV or FORM that also has a click method attached, it will prevent the DIV or FORM click method from firing.	
+
+- event.PreventDefault() vs event.stopPropagation vs return false
+	e.preventDefault() will prevent the default event from occurring, e.stopPropagation() will prevent the event from bubbling up and return false will do both.
+
+- event.stopPropagation vs event.stopImmediatePropagation
+	event.stopPropagation() allows other handlers on the same element to be executed.
+	event.stopImmediatePropagation() prevents every event from running. All the consecutive events.
+--------------------------------------------------------------------------------------------
+- jQuery how to check whether given value is number or not.
+	isNumeric(variable) // we can use isNaN in JS
+  
+  How to get the datatype of a value?
+  	$.type(object) // we can use typeof in JS
+--------------------------------------------------------------------------------------------
+- jQuery one() method?
+  When using the one() method, the event handler function is only run ONCE for each element.
+
+  Example:
+  	$("p").one("click", function(){
+	    $(this).animate({fontSize: "+=6px"});
+	});
+--------------------------------------------------------------------------------------------
+- Can we make $(document).ready(function() { .. }) to hold ?
+  YES. Use holdKey
+
+	Example: Delay the ready event until a custom plugin has loaded.
+
+		$.holdReady( true );
+		$.getScript( "myplugin.js", function() {
+		  $.holdReady( false );
+		});
+--------------------------------------------------------------------------------------------
+- Can we get multiple CSS properties at the same time using a single jQeury code?
+	var propCollection = $("#dvBox").css([ "width", "height", "backgroundColor"]);
+	Now propCollection will be as,
+		{
+			width: "100px",
+			height: "200px",
+			backgroundColor: "#FF00FF"
+		}
+--------------------------------------------------------------------------------------------
+- What is jQuery UI?
+	jQuery UI is a curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript Library that can be used to build interactive web applications.
+
+- jQuery vs jQuery UI
+	jQuery is the core library. jQueryUI is built on top of it. If you use jQueryUI, you must also include jQuery.	
+--------------------------------------------------------------------------------------------
+- jQuery.data()
+	// Attach data "amarnath" to "name" for div
+	$("div").data("name", "amarnath");
+
+	// Get value of "name" from div
+	$("div").data("name");
+--------------------------------------------------------------------------------------------

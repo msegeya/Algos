@@ -1,0 +1,86 @@
+CSS (Cascading Style Sheet)
+------------------------------------------------------------------------------------------------
+- What are the different ways to apply CSS?
+	There are 4 ways,
+		*) Inline CSS 	- Write CSS in the element itself.
+			<h1 style="color:blue;margin-left:30px;">This is a heading.</h1>
+		*) Embeded CSS	- Writing CSS in the HTML page under head tag inside style tag.
+			<style>
+				h1 {
+				    color: maroon;
+				    margin-left: 40px;
+				} 
+				</style>
+		*) External CSS	- Write css externalyl and link it with "link tag" by providing path.
+			<link rel="stylesheet" type="text/css" href="mystyle.css">
+
+		*) Imported CSS	- Import the CSS as follows, 
+			@import url('/css/styles.css');
+
+	Difference between import and expernal(link) css?
+	link wins over import. 
+	But one advantage we have for import, we can use @import inside another css but link cannot be used in that way.
+------------------------------------------------------------------------------------------------
+- What is the order of precedence?
+ 	*) Inline **First priority**
+ 	*) Embedded **Second priority**
+ 	*) External **Third priority**
+------------------------------------------------------------------------------------------------
+- What is !important in CSS
+	If you want to apply a rule you feel which are most critical and this rule should NOT be overiden by any furthur rules then use !important.
+	
+	Example: 
+		p { color: red !important; }
+		p { color: blue; }
+
+	In the above example paragraph will always be red even though there is another rule for pragraph after the given rule. Since we have given "!important"	it won't be orerrided in further rules.
+------------------------------------------------------------------------------------------------
+- Difference between an id and class?
+	class - is a style that can be applied to one or more elements.
+	id - Is Uniquely identifying an element.
+
+- Can there be same id for different elements?
+Not recommanded at all. An id is a unique way to identify elements.
+But if you try to give the same id to different elements then the id first encountered will the be the final.
+In the below example, id="myName" is present for two divs. When you say get by id then first myName id will be recognised .. that is "Amarnath"
+
+Example: 
+		<div id="myName">Amarnath</div>
+		<div id="myName">Chandana</div>
+
+		<script type="text/javascript">
+			var name = document.getElementById("myName").innerHTML;
+			alert(name);
+		</script>	
+------------------------------------------------------------------------------------------------
+- Contextual Selector:
+	Specific occurence of an element. It is a string of individual elements separated by white space.
+
+	Example: table p { property: value; }
+			==> It means, set the value for <p> tags that belongs to <table> tags. So where ever this format is present it will apply the property.
+
+- Grouping:
+	Apply same property for all the given elements.
+	Example: td, th, li { property: value; }
+
+- Child Selectors:
+	The > combinator separates two selectors and matches only those elements matched by the second selector that are direct children of elements matched by the first.
+
+	Example: div > span { background-color: DodgerBlue; }	apply it for the below HTML
+
+			<div>
+			  <span>Span 1. In the div.
+			    <span>Span 2. In the span that's in the div.</span>
+			  </span>
+			</div>
+			<span>Span 3. Not in a div at all.</span>
+
+		==> The above style will onyl be applied to "Span 1. In the div." which is the direct child of div.
+
+- pseudo-class:
+	A pseudo-class is used to define a special state of an element. The classes are specified using a colon to separate the element name and pseudo class.
+	Example: Another good example is first-child, which finds an element's first child element.
+
+	Example: a:link { color: #FF0000; }
+			 a:active { color: #0000FF; }
+------------------------------------------------------------------------------------------------

@@ -1,0 +1,52 @@
+- HTML vs HTML5?
+Lot of cool things are introduced in HTML5 such as LOCAL_STORAGE, drawing using CANVAS, additional semantics tags (<header>, <footer>, <section>), audio, video API's. With HTML5 we can write more easy and sophisticated client side code.
+Don't miss the point about LOCAL_STORAGE and CANVAS.
+
+- What is the purpose of HTML5?
+	It aims to reduce the need for proprietary plug-in-based rich internet application (RIA) technologies such as Adobe Flash, Microsoft Silverlight, Apache Pivot, and Sun JavaFX. Instead of using those plugins, it enables browser to serve elements such as video and audio without any additional requirements on the client machine.
+------------------------------------------------------------------------------------------------
+- What is the use of <!DOCTYPE> in HTML5? Is it mandatory?
+	The <!DOCTYPE> is an instruction to the web browser about what version of HTML the page is written in.
+	<!DOCTYPE> tag does not have an end tag. It is not case sensitive.
+	The <!DOCTYPE> declaration must be the very first thing in HTML5 document, before the <html> tag.
+------------------------------------------------------------------------------------------------
+- What is the use of canvas in HTML5?
+HTML5 canvas element can be used to draw graphic images on a webpage by using JS
+Example: 
+	*) First declare a canvas element.
+		<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+		</canvas>
+
+		<script>
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			ctx.fillStyle = "#FF0000";
+			ctx.fillRect(0,0,150,75);
+		</script>
+------------------------------------------------------------------------------------------------
+- Explain local storage?
+	With local storage, web applications can store data locally within the user's browser upto 5MB. 
+	Before there used to be concept of cookies.
+	Local storage is more secure, and large amounts of data can be stored locally, without affecting website performance. 
+	Unlike cookies, the storage limit is far larger (at least 5MB) and information is never transferred to the server.
+
+	How do we store?
+		localStorage.setItem("lastname", "Smith"); (or) localStorage.lastname = "Smith";
+
+	How to retrieve?
+		var name = localStorage.getItem("lastname"); (or) var name = localstorage.lastname;
+
+	How to delete a stored item?
+	localStorage.removeItem("lastname");
+
+- Explain session storage?
+	Same a localStorage but the session storage is stored only for one session which means when you close the browser window the data is deleted.
+	We can create, access and delete a session storage like below,
+		sessionStorage.name = "xyz";
+		var name = sessionStorage.name;
+		sessionStorage.removeItem("name");
+
+- Difference between session and local storage.
+	Session storage scope is only until the browser window is open. When it is closed everything gets deleted.
+	Where as localStorage its persistent and only the user has to delete it explicitly.
+------------------------------------------------------------------------------------------------

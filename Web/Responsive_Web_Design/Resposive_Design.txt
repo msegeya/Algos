@@ -1,0 +1,26 @@
+- What is responsive design?
+	Responsive web design makes your web page look good on all devices. (Mobile, Desktop, tablets)
+	Responsive web design is all about using CSS and HTML to resize, hide, shrink, enlarge to make the web page look good on all devices.
+	It uses media queries to change the style based on the target device.
+------------------------------------------------------------------------------------------------
+- Responsive Vs Adaptive Design?
+	The common thing between both of them is they adjust to browser's width. They both adjust to browser width.
+
+	Responsive is fluid and adapts to the size of the screen no matter what the target device is.
+	
+	Adpative design is static layouts based on the breakpoints which don't respond once they're initially loaded. Adaptive works by detaecting the screen width and load the appropriate layout.
+	Generally you would design an adaptive site for six common screen widths:
+	Ex widths: 320, 480, 760, 960, 1200, 1600
+	Adaptive design requires more work since you have to design layputs for a minimum of six widths.
+
+	With this difference we can say Responsive is more flexible for various devices. Then why use Adaptive?
+	So if you know the devices in prior and their viewport width's and you are sure that these won't change in near future then you can go with Adaptive else just go for Reponsive Wen Design.
+------------------------------------------------------------------------------------------------
+- Which one is harder to make? Responsive or Adaptive
+Responsive is more harder to make since you need to have a lot of control over CSS.
+------------------------------------------------------------------------------------------------
+- Example of responsive web design?
+	https://www.youtube.com/watch?v=fA1NW-T1QXc
+
+	Refer: Algos/Web/Responsive_Web_Design/responsive_tutorial_1.html
+------------------------------------------------------------------------------------------------

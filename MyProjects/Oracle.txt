@@ -1,0 +1,128 @@
+Projects:
+1) Longer Identifiers
+2) JavaScript Stored Procedure (JSSP)
+3) Oracle Cloud
+4) JDB (for watch/unwatch commands)
+-------------------------------------------------------------------------------------------------
+- What build tools do we follow? (A build tool is something which is used for making the project.)
+	*) Maven, ANT
+	*) It changes from project to project, for Longer Identifiers we use ANT as build tool.
+	*) Longer Identifiers and JSSP used ANT as a build tools.
+
+- How do we compile?
+	*) OJVM uses a makefile which called gmake.
+	*) This make file has set of rules described in it and based on the file *.java or *.c the respective compiler will be used.
+-------------------------------------------------------------------------------------------------
+Longer Identifiers:
+	The project is a sub-project of 41716 – Longer Identifiers. To ease migration from third party databases to Oracle, Oracle will increase database identifier lengths from the current maximum of 30 bytes to 128 bytes.
+	As a component in Oracle database, Oracle Java Virtual Machine (OJVM) needs re-architecture work to support 128 byte identifiers.
+	Identifiers in SQL, PL/SQL and utilities related to OJVM needs to be changed.
+
+Flow: (My Interpretation)
+	*) There is a flag called which maintains M_IDEN at the root level that is at RDBMS level.
+	*) So when the root changes all the childs (sub projects) need to update the M_IDEN value for their projects.
+	*) An application that do not depend on functionality with longer identifiers should be functionally unaffected by this project. 
+	*) Here more than development we had to do unit testing.
+
+
+	Refer: LI_Design_Mine.png
+-------------------------------------------------------------------------------------------------
+JavaScript Stored Procedure:
+	The goal of this project is to allow plain JavaScript execution (i.e., not Node.js) in Oracle database, similar to Java Stored Procedure. In the first implementation, JavaScript code previously loaded as Java resource will be executed from Nashorn’s shell.
+	Ultimately, developers will be able to design stored procedures, triggers, user defined functions and procedures written natively in JavaScript.
+
+Flow:
+	*) You create a Java Source in which you need to write JS code.
+    *) You have "ScriptEngine" class (which implements ScriptManager interface) which takes argument a JS file in the Java code.
+    *) Java source code is compiled with "javac" and a class file is created. This class file is interpreted by JVM at runtime.
+    *) First it calls the JDBC driver which invoked "rt.jar" which has "Nashorn library" in it. It runs the JS file which we attached using "ScriptEngine" and returns the code to JDBC and then JDBC will return the output String back to RDBMS.
+    *) If the JS contains SQL code then Nashorn connects to JDBC and calls parses the SQL and returns the output back to JDBC driver.
+
+    Refer: JSSP_Design_Mine.png
+-------------------------------------------------------------------------------------------------
+Oracle Cloud:
+	The aim of the project is to lock all the Java related features from running inside a PDB.
+Following is the sections present under Java locking,
+    JAVA_OS_ACCESS – Blocks the usage of java.io.FilePermission. All the operations through JAVA which require java.io.FilePermission will be blocked.
+    JAVA_RUNTIME – Blocks the usage of java.lang.RuntimePermission. All the operations through JAVA which require java.lang.RuntimePermission will be blocked.
+    JAVA – This feature is aimed to block JAVA as a whole. All the dependent options and features of database using JAVA will be affected.
+    Disable Java on Cloud - To disable all the Java features(JAVA_OS_ACCESS, JAVA_RUNTIME, JAVA) from running in a PDB on cloud.
+
+Flow:
+	*) What is the need of the project? The project need is such that a user should be able to run some Java features in one PDB and lock the same in another PDB.
+	*) Project is divided in to three parts - OJVM Lock, JAVA_RUNTIME Lock, JAVA_OS_ACCESS Lock.
+	*) User creates a Profile. And then adds some disable statements there .. like disable JAVA
+	*) Once he adds it to the profile we will assign the profile to a certain PDB.
+	*) So any calls now that are sent from this PDB to JDBC driver will be checking the security table whether there is any lock on JAVA or not. So if the table has lock on JAVA then return priviledge error else return the output.
+	*) Similarly we will do the same for JAVA_RUNTIME and JAVA_OS_ACCESS.
+-------------------------------------------------------------------------------------------------
+- What is the situation where you disagreed with your manager but eventually you suggestion has won?
+	I got an appreciation from my manager while working for Java Lock down in PDB project.
+	The architect actually mentioned in the functional doc that any Java objects that are already created should not be locked that is the objects which are created before applying Java lock should be able to run but the creation should not be allowed after lock is applied.
+
+	So I told to my manager that "dbms_java.set_output" should run because it is already created but manager disagreed saying that we are creating it again but the actual point is that the "set_output()" is a static method and has already been created. So it should run. We brought this to Architect notice and he finalised my idea that is should run fine and not a bug.
+	Ex:	exec dbms_java.set_output(1000);
+-------------------------------------------------------------------------------------------------
+- What is the appreciation you got at Oracle?
+	This is during my JSSP project where we need to actually run the JS code on the ORDS (Oracle Rest Data Service). We were not able to do since there is an issue with the delete in the ORDS code. Then after few weeks of discussion with the actual team who developed ORDS and going through it I am finally able to figure out the issue and got it notified to ORDS dev team such that there were able told fix it and document it.
+-------------------------------------------------------------------------------------------------
+- JavaScript Stored Procedure
+	Refer - Algos/MyProjects/JSSP_ClassDiagram.jpg (View this on Windows Photo Viewer)
+
+	Classes and Interfaces:
+		ScriptEngine, ScriptEngineManager, EngineProvider, Shell, Nashron-API, JDBCController, OutputShell
+
+		Steps:
+		1) ScriptEngine is an Interface.
+		2) ScriptEngineManager class is an impementation of ScriptEngine interface.
+		3) ScriptEngineManager calls EngineProvider class to provide a particular engine. Here it is "nashorn".
+		4) Using this nashorn engine call Shell class which can do two things,
+			a) If your JS file is simple (that is without any JDBC conenction) then run it by calling Nashorn API.
+			b) If your JS file has JDBC calls then use JDBC driver call to connect to DB and JDBC will call Nashorn API to run the queries, prepared statements etc using Nashorn and get the result
+		5) Pass the result back to ScriptEngineManager and it will inturn call OutputShell to display it on console.
+
+
+- Following is a example of Java class and JS file.
+
+	public static void main(String[] args) throws ScriptException, FileNotFoundException, NoSuchMethodException
+	{
+	    ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+	    ScriptEngine engine = scriptEngineManager.getEngineByName("nashorn");
+	    engine.eval(new FileReader("tkjvjssp04_002.js"));
+	}	
+
+	tkjvjssp04_002.js
+		var Driver = Packages.oracle.jdbc.OracleDriver;
+		var oracleDriver = new Driver();
+		var url = "jdbc:default:connection:";
+		var connection = oracleDriver.defaultConnection();
+
+		var query ="SELECT NAME FROM nashorn_table";
+		var preparedStatement = connection.prepareStatement(query);
+		var resultSet = preparedStatement.executeQuery();
+
+		while(resultSet.next()) {
+		     print(resultSet.getString(1));
+		     }
+
+		resultSet.close();
+		preparedStatement.close();
+		connection.close();
+-------------------------------------------------------------------------------------------------
+- PDB LockDown in Java Cloud
+	Refer - Algos/MyProject/PDB_LockDown_ClassDiagram.jpg (View this on Windows Photo Viewer)
+	
+
+	Classes and Interfaces:
+		LockDown, LockDownManager, RDBMSManager, Profiles, ProfileCheck, JDBCController, JavaCController.
+
+	Steps: 
+	1) LockDown Interface has methods like getProfile, getCurrentPDB()
+	2) LockDownManager class in an implementation of LockDown interface.
+	3) LockDownManager calls RDBMSManager to get the Profiles that are created in this session.
+	4) RDBMSManager calls Profiles class and gets all the profiles that are created in this session by making a call with the JDBCController which inturn calls the "Profiles" Table to get all the profiles.
+	5) RDBMSManager gets back all the profiles to LockDownManager.
+	6) LockDownManager calls Profile check to see what are the locks present for this profile.
+	7) ProfileCheck class will make call to JDBCController and sees all the locks that are present.
+	8) Finally if there is a lock for Java then we will not compile any of the Java sources else we will.
+-------------------------------------------------------------------------------------------------

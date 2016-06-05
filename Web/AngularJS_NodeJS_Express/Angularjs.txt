@@ -1,0 +1,29 @@
+- Why AngularJS
+Previously when ever a request is made (refer Full_Page_Reload.png) the server used to throw a new page and the entire page has to be reloaded. But now as the number of hits to page are increasing there should be less delay as much as possible.
+
+- SPA: (Single Page Application)
+In SPA we don't refresh the whole page but only part of the pages are refreshed (Refer SPA.png). Angular has many features that make us easy to build a SPA. Refer Angular features below.
+
+- AngularJS features
+*) Data binding (Refer Data_Binding.png) When ever we change the data on the model the view automatically updates. This is beacause of the controller which has $scope. $scope acts like a glue between the model and the view.
+*) Modules - We create modules like controller, service, factory. We include all these modules inside our app.js
+*) Dependency Injection - We don't need to create any object. We just need to inject any module we want and Angular will create an object and give it to us.
+*) Directives - These can be method/UI which can be reused at different places. Ex: DatePicker, InputLimitChecking
+
+- AngularJS in terms of diagram:
+	Refer Angular_Arch.jpg
+
+- Ajax Vs AngularJS
+While the AJAX revolution was intended to boost the performance by which content updates are delivered to the browser by an order of magnitude, a good chunk of that gain has been eroded not just by the massive amount of badly bloated JavaScript squeezed through our Internet connections, but also by the increased amount of developer resources required to maintain such bloat.
+
+So in AJAX when ever we make a call we need to update the UI with the help of the id of the HTML. The code looks so cluttered. When we need to do the same in Angular it is just few lines of code. As we already have the pages ready we will get the data and pass it to the controller.
+
+
+Important Elements:
+1) $scope - acts as a glue
+2) $localStorage - to store the data locally.
+3) $location - to forward the click to a different page.
+4) ng-class - expression based class style
+5) ng-click - for button clicks
+6) ng-style - adding style
+7) ng-submit - for form submit.

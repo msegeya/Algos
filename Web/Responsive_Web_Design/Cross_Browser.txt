@@ -1,0 +1,20 @@
+- How to make a your web page cross-specific?
+	Following are the rules that you have to define for making your web-site cross browser:
+
+	*) DOCTYPE has to be specified in your HTML file else the browser has to guess HTML version and different browsers will guess differently. And also specify the DOCTYPE in strict mode.
+
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+	*) By default different browsers behave different as per their default rules. We need to explicitly define all the default rules such that all of the broswers will have the same default values.
+		Refer this: http://meyerweb.com/eric/tools/css/reset/index.html
+		Total reset of all the basic styles.
+
+	*) Conditional comments: Use conditional comments rather than always making CSS hacks.
+		<!--[If IE]>
+ 			<link type="text/css" href="IEHacks.css" />
+ 		<![endif]-->
+
+ 	*) Use JS libraries like jQuery, Dojo, YahooUI etc.
+
+ 	*) Use cross browser CSS frameworks like BluePrint etc.	
+

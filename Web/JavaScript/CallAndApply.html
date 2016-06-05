@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<script type="text/javascript">
+		function myFunction(a, b) {
+			return a * b;
+		}
+
+		var myCallObj = myFunction.call(myObj, 10, 20);
+		alert(myCallObj);
+
+		/*******************************************/
+
+		var myArray = [20, 30];
+		var myApplyObj = myFunction.apply(myApplyObj, myArray);
+		alert(myApplyObj);
+	</script>
+</head>
+<body>
+
+</body>
+</html>

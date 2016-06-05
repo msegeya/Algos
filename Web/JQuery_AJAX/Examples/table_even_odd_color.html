@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+			<script type="text/javascript" src="jquery-2.2.3.min.js"></script>
+	<style type="text/css">
+		table, th, td {
+		    border: 1px solid black;
+		    border-collapse: collapse;
+		}
+		th, td {
+		    padding: 5px;
+		}
+	</style>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("tr:even").css("background-color", "yellow");
+			$("tr:odd").css("background-color", "grey");
+		});
+
+	</script>
+</head>
+<body>
+	<div>
+		<h1>Color even rows and odd rows with different colors. </h1>
+		<table>
+			<thead>
+				<th>Name</th>
+				<th>Age</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Amarnath</td>
+					<td>29</td>
+				</tr>
+				<tr>
+					<td>Sushma</td>
+					<td>25</td>
+				</tr>
+				<tr>
+					<td>Amarnath</td>
+					<td>29</td>
+				</tr>
+				<tr>
+					<td>Sushma</td>
+					<td>25</td>
+				</tr>
+				<tr>
+					<td>Amarnath</td>
+					<td>29</td>
+				</tr>
+				<tr>
+					<td>Sushma</td>
+					<td>25</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

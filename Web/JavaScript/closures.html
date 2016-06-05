@@ -1,0 +1,55 @@
+<script>
+
+/*
+	https://www.youtube.com/watch?v=oWSQ4mWNFPU
+
+	Google's definition: (Search "closure in Javascript")
+	A closure is an inner function that has access to the outer (enclosing) function's variables—scope chain. The closure has three scope chains: it has access to its own scope (variables defined between its curly brackets), it has access to the outer function's variables, and it has access to the global variables.
+*/
+
+/*
+	Read the definition again and then see the below code. 
+	First we called function f1. It has returned the function f2 as output.
+	Now when we call the output that is function f2 then we should have a problem here since f1 function is already over so the variables under it should be grabage collected that is the variable z should be undefined now as we have exited the function f2.
+
+	Nope that is not right. Since by the definition of closure the inner function has the access to the outer function variable. So the scope chain will be persisted here such that the value z will still be accessible.
+*/
+function f1(x, y) {
+	var z = 3;
+	function f2() {
+		console.log("x = " + x + " y = " + y + " z = " + z);
+	}
+	return f2;
+}
+
+var out = f1(1, 2); // will return function f2.
+out();
+
+// Output: "x = 1 y = 2 z = 3"
+
+/* 
+	Any usecase about the use of closures practically ?
+	Refer: http://stackoverflow.com/a/2728341/967638
+
+	We can use closures to enforce private/public methods.
+	As you cannot call a private method directly so that we can use a public method to call the private method.
+	This can be achieved using closures.
+	See below example for more details.
+*/
+
+function Names() {
+	var privateFunc = function() {
+		console.log("Name");
+	}
+
+	function publicFunc() {
+		privateFunc();
+	}
+
+	return publicFunc;
+}
+
+var out = Names();
+out();
+
+</script>

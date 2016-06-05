@@ -1,0 +1,98 @@
+AJAX - Asynchronous Javascript And XML.
+------------------------------------------------------------------------------------------------
+- Advantages of AJAX?
+	Asynchronous calls, faster retrivel, more interactive
+------------------------------------------------------------------------------------------------
+- Disadvantages of AJAX?
+	*) The back and refresh buttons are useless. Using AJAX we can load the page content dynamically but clicking on back or refresh button would take you to entirely different page or to the beginning of what your dynamic web page is processing.
+	*) Javascript must be enabled on your browser since AJAX is built on JavScript.
+	*) Server response time may be more sometimes.
+	*) AJAX calls are sent in plain text format, this might leave to insecure database access.
+	*) Search engine cannot execute JS code and hence AJAX cannot be indexed by crawlers.
+------------------------------------------------------------------------------------------------
+- What technologies does AJAX use?
+	JavaScript, XMLHttpRequest, XHTML, DOM
+------------------------------------------------------------------------------------------------
+- AJAX vs JavaScript
+	JavaScript is used to do various functionalities like events handling, setting data, retrieving data, making calls.
+	AJAX is used for server calls that is to get the data from a web service.
+------------------------------------------------------------------------------------------------
+- AJAX frameworks. (IMPORTANT)
+	Dojo Toolkit - Modular JavaScript tool kit.
+	Prototype - Best for developing visual effects, animations.
+	MooTools - Mostly used for creating visual effects.
+	YUI - Yahoo User Interface library.
+	Spr - Developed by Adobe
+	Google Web Toolkit - Developed by google for rich AJAX applications.
+------------------------------------------------------------------------------------------------
+- Can we request for XML data usign AJAX call?
+  YES. Just give datatype as "XML".
+  Example:
+  	$.ajax({
+		type: "GET",
+		url: "cars.xml",
+		dataType: "xml",
+		success: function(xml) {
+		  	// do something.
+		}
+	});
+------------------------------------------------------------------------------------------------
+- What are AJAX protocols?
+	1) HTTP's GET, POST.
+	   AJAX also uses XMLHttpRequest protocol.
+	2) AJAX uses JSON for communicating between client and server.
+------------------------------------------------------------------------------------------------
+- How to cancel an AJAX call?
+	Two ways,
+	*) If you think time limit of the ajax call should not be more than 5 seconds then we use "time interval".
+
+		$(document).ready(
+		    var xhr;
+
+		    var ajaxCall = function(){
+		        if(xhr && xhr.readyState != 4){
+		            xhr.abort();
+		        }
+		        xhr = $.ajax({
+		            url: 'ajax/progress.ftl',
+		            success: function(data) {
+		                //do something
+		            }
+		        });
+		    };
+
+		   ******* var interval = setInterval(ajaxCall, 500); *******
+		);
+
+	*) We can also use 	AJAX abort method.
+		Example:
+			var ajax_request;
+			function do_something()
+			{
+			    if(typeof ajax_request !== 'undefined') {
+			    	ajax_request.abort();  // NOTE: We are checking if there are any ajax_request present if so then abort them.
+			    }
+
+			    ajax_request = $.ajax({
+			        type: 'post',
+			        url: '/test.php',
+			        data: search_data,
+			        success: function(data) {
+			            $('#catalog').html(data);
+			        }
+			    });
+			}
+------------------------------------------------------------------------------------------------
+- What are AJAX objects?
+	AJAX object can be created using "new AJAX.Request"
+
+	Example:
+	new Ajax.Request('/some_url', {
+	  method:'get',
+	  onSuccess: function(transport) {
+	    var response = transport.responseText || "no response text";
+	    alert("Success! \n\n" + response);
+	  },
+	  onFailure: function() { alert('Something went wrong...'); }
+	});
+------------------------------------------------------------------------------------------------

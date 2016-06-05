@@ -1,0 +1,56 @@
+- What is a Servlet?
+It is server side programming language which is used for generating dynamic web pages.
+
+- Life Cycle of a servlet
+1) Servlet is loaded
+2) Servlet is instantiated i.e, Servlet object is created
+3) Servlet is initialized using init() method.
+4) Servlet does the service using service()
+5) Servlet is destroyed
+
+NOTE: Servlet loading, creation, init() call and destroy() call all these happens only once.
+
+- Who creates Servlet object?
+Servlet Container
+
+- When does Servlet object is created?
+When the first request is made.
+
+- Diff between GET vs POST?
+1) 	GET: Limited amount of data can be sent
+	POST: Large amount of data can be sent.
+
+2) 	GET: Not Secured as data can is visible on the URL.
+	POST: Secured. Data is not visible on the URL
+
+3) 	GET: Can be bookmarked
+	POST: Cannot be bookmarked
+
+4) 	GET: Default method of HTTP
+	POST: Need to mention it explicitly.
+
+- What is Request Dispatcher?
+It is an interface to forward the request to another resource. Resource can be HTML, JSP and another servlet within the same application.
+
+- What is a Session?
+Session means a particular interval of time. It is used to maintain the state of the user.
+Session is on the server side.
+
+- What is a Cookie?
+Cookie is a small piece of information that is persisted between multiple client requests.
+Cookie has key/value pair and optional attributes.
+We have two types of cookies a) Persistent Cookies and 2) Non-Persistent Cookies.
+Persistent Cookies: Valid for single session. If user closes the browser then we destroy that cookie.
+Non-Persistent Cookie: Valid for multiple sessions. Removed only when use logouts.
+
+- Disadvantages of Cookies:
+1) Cookies are stored in plain text. So they pose risk. But still we can encrypt them if necessary.
+2) Limitations like number of cookies etc.
+3) User can enable/disable the cookies on his browser. If he disables and if the application needs cookies then we will have a problem.
+4) Users can play with the cookies like edit, delete.
+
+- Diff between Session and Cookie?
+Cookie works on the client side where as Session is on the server side.
+
+- What is a war file?
+war full form is "Web Archive". war file specifies the web elements.

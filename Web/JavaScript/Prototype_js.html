@@ -1,0 +1,55 @@
+<script>
+	/* Refer - http://www.w3schools.com/js/js_object_prototypes.asp */
+	/* A simple Person prototype. */
+	function Person(first_name, last_name, age) {
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.age = age;
+	}
+
+	var amar_1 = new Person("Amarnath", "Chandana", 29);
+	var s_1 = new Person("Sushma", "Muthireddi", 25);
+
+	/*  Now I thought it would be good to keep gender also as part of the amar_1 person.
+		This additional attribute is added only to amar_1 not to any other object. */
+	amar_1.gender = "Male";
+	console.log(amar_1.first_name + " " + amar_1.age + " " + amar_1.gender);
+
+	/* Suppose if you want to add method to an existing object then also we can do the same procedure */
+	amar_1.name = function() {
+		return this.first_name + " " + this.last_name;
+	}
+	console.log(amar_1.name() + " " + amar_1.age + " " + amar_1.gender);
+
+	/*  Now suppose we want add nationality to the Person prototype itself. 
+		This is the wrong way to do when we are changing the property itself.
+		We should add keyword prototype to the Person.
+	*/
+	Person.nationality = "India"; // **** won't work. prints undefined when we do prasad_1.nationality. ****
+	Person.prototype.nationality = "India";
+	var prasad_1 = new Person("Prasad", "Chandana", 57);
+	console.log(prasad_1.first_name + " " + prasad_1.last_name + " " + prasad_1.age + " " + prasad_1.nationality);
+
+	// Similarly we can add method also to the Person prototype.
+	Person.prototype.name = function() {
+		return this.first_name + " " + this.last_name;
+	}
+	console.log(prasad_1.name() + " " + prasad_1.age + " " + prasad_1.nationality);
+
+	// One puzzle was asked on HackerRank
+	function A() {
+		this.x = 10;
+		var y = 20;
+	}
+
+	var a = new A();
+	console.log(a.x + " " + a.y); // a.y will be undefined since y is local to function.
+
+	A.prototype.x = 30;
+	A.prototype.y = 40;
+	// Now we added prototype x and y. But attribute x is already there so x will not be updated. But y will be added.
+	console.log(a.x + " " + a.y); 
+
+	var m = new A();
+	console.log(m.x + " " + m.y);
+</script>

@@ -1,0 +1,16 @@
+- Express.js and Node.js gave JavaScript newfound back-end functionality—allowing developers to build software with JavaScript on the server side for the first time. 
+
+- EXPRESS.JS FRAMEWORK BASICS
+	*) Server-side web and mobile application framework
+	*) Language: written in JavaScript
+	*) Express builds:
+			Single-page, multi-page, and hybrid mobile and web apps
+			Common back-end functions for web applications
+			APIs (application programming interfaces)
+	*) Templating engines: Express comes with two templating engines, Jade and EJS, which facilitate the flow of data into a website structure.
+	*) MVC pattern: Express supports the Model-View-Controller architecture, a really helpful way to build websites in a model-driven format.
+	*) Platform: Node.js
+	*) Operating system: It’s cross-platform, so it’s not limited to one OS.
+	*) The Express Generator lets you create complex applications quickly.
+
+- Node.js alone cannot do the required stuff so we need a whole framework which can hold both the front end and the back end.

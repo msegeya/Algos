@@ -1,0 +1,6 @@
+Project:
+	eServe Billing
+
+Description: eServe tool is an portal for British Telecom billing.
+
+Features: Billing, Custoemr details, Statement of Account for Customers.

@@ -1,0 +1,110 @@
+************************************************************************************************************************
+When you were asked to read using a scanner where the input is like,
+------------------
+42
+42.324
+Hello World
+------------------
+that is first line is Integer, second line is Double and third line is String.
+
+==> Scanner sc = new Scanner(System.in);
+	int x = sc.nextInt(); int y = sc.nextDouble(); int z = sc.nextLine();
+In the first glance it seems to the the right but actually there is an issue here the nextInt() or nextDouble methods will not consume the last new line character. So when your nextLine comes it will consume the empty new line.
+	int x = sc.nextInt(); 
+	int y = sc.nextDouble();
+	sc.netLine(); // this will consume the new line character at the end. 
+	int z = sc.nextLine();
+
+Refer: http://stackoverflow.com/a/13102066/967638
+************************************************************************************************************************
+How to do padding to an int variable?
+==> Suppose you have an int and you want in such a format as below,
+	int a = 9; and when you print it just prints 9 but when you want in some format like say 009 that is output should be of three characters atleat then do the following,
+	=> String.format("%03d", a); // where number 3 in output format is the number of characters the output should be.
+
+	Refer: http://stackoverflow.com/a/473309/967638
+************************************************************************************************************************
+What are static blocks in Java?
+class Solution {
+	static boolean flag;
+	static int x;
+
+	static {
+		flag = true;
+		x = 10;
+	}
+
+	main(..) { }
+}
+
+It's a static initializer. It's executed when the class is loaded (or initialized, to be precise, but you usually don't notice the difference).
+It can be thought of as a "class constructor".
+Note that there are also instance initializers, which look the same, except that they don't have the static keyword. Those are run in addition to the code in the constructor when a new instance of the object is created.
+
+Refer:  http://www.geeksforgeeks.org/g-fact-79/
+		http://stackoverflow.com/a/2943575/967638
+************************************************************************************************************************
+How to compare whether two strings are alphabetically/lexicographically in order or not?
+"hello" comes before "java"; since h comes before j.
+==> Simple use compareTo of String method which returns an int. 
+	Just say "hello".compareTo("java")
+	If result is, > 0 then "hello" comes after "java"
+				  < 0 then 	"hello" comes before "java"
+				  = 0 then both are same.
+************************************************************************************************************************
+How to capitalize only the first letter of a word?
+==> Just get the first letter using suibstring and convert it to upper case using toUpperCase and get the remaining string using substring and append it to the original string.
+	String A = "hello"; 
+	A = A.substring(0, 1).toUpperCase() + A.substring(1); // Hello
+************************************************************************************************************************
+How to replace more than one space inside a sentence?
+==> To remove all the spaces on the boundary do .. s.trim();
+==> TO remove all the spaces including the ones that are present in between the words do .. s.replaceAll("+", "");
+==> To remove all spaces except one space in between the words do .. s.replaceAll(" +", " ");
+
+How to remove special character like !?._',@ do then do .. s.replaceAll("[!?._',@]", ""); // replace with empty or if you want to replace then what ever like space.
+************************************************************************************************************************
+Suppose if someone asks that there are 2 numbers where each of them are 200 digits in length then how do you add them?
+Use BigIntegers.
+A number which does not fit in any of the data types then what should we do?
+==> Use BigInteger
+
+1) Take number's as a String s1, String s2.
+2) Convert them to BigIntegers, 
+		BigInteger b1 = new BigInteger(s1); BigInteger b2 = new BigInteger(s2); 
+3) Add them as, BigInteger b3 = b1.add(b2);
+4) Multiply as, BigInteger b4 = b1.multiply(b2);
+
+How do you check them whether a BigInteger is positive or negative?
+=> Use compareTo. 
+	positive - b1.compareTo(BigInteger.ZERO) > 0
+	negative - b1.compareTo(BigInteger.ZERO) < 0
+	zero 	 - b1.compareTo(BigInteger.ZERO) = 0
+************************************************************************************************************************
+When we want whether a given pattern is present in a string or not we do .. 
+String s;
+String p;
+s.contains(p);
+
+What if the pattern occured more than once and we want to know how many times it occured?
+	s = "99123499"
+	p = "99"
+
+Use IndexOf(..)
+How does this work?
+indexOf will return the start position of the index in the original string where the pattern occured.
+If we say s.indexOf(p, 0) then the method searches from position 0 to end of the string and then return the first occurence of the pattern in this given range of index.
+So next time what we do is we increment the start positon and then it searches again from given position to end of the string.
+int first = s.indexOf(p, 0);
+int second = s.indexOf(p, 1);
+int third = s.indexOf(p, 3);
+
+It returns -1 if the pattern is not present in the given range of indeices.
+
+So if someonce asks what are all the positions then we do the following,
+for(int i = 0; i < s.length(); i ++) {
+	if(s.indexOf(p, i) != -1) { // -1 indicates that the pattern is not present in the given range of indices.
+		list.add(i); // add the position to the index unless it is not equals to -1.
+	}
+}
+************************************************************************************************************************

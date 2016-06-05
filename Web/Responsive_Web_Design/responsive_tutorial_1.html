@@ -1,0 +1,113 @@
+<!-- 
+	Reference: https://www.youtube.com/watch?v=fA1NW-T1QXc
+
+	We will do it step wise.
+
+	*) In Step - 1, we have the basic CSS preoperties. Comment Step - 2, 3, 4.
+	   Now open the page in Firefox. Then goto Tools -> Web Developer -> Responsive Design View
+	   On the standard tool bar you have the resolutions listed. You can edit them and check how your page is rendering on different resoltuions.
+
+		Disadvantages: Your page deos not get fitted to the screen size. Reduce the screen width and see you will know that the conetents are getting ignored as the screen is getting over the contents. But what we want is it should fit the screen.
+
+	*) In Step - 2, uncomment only Step - 2. (Comment step - 3, 4). 
+	   We will solve the above issue. If the width of the screen is 960px above normal CSS settings work.
+	   But the below does not work. So we will write CSS code for anything less than 960px that is 959px.
+	
+	   @media screen and (max-width: 959px) - It means if the width is less than 960px then apply these settings.
+	   #container { width: 100% } - Occupy the full width
+	   #left-column { width: 70% } - Occupy 70% of the container.
+	   #right-column { width: 30% } - Occupy remaining 30% of the container.
+
+	   Now refresh the screen and check all the elements will fit the screen. 
+
+	   One disadvantage here, both right and left are side by side. This looks okay of the screen width is of resonable width. What happens if the screen width is too small we want the move the "right-column" below the "left-column".
+
+		See below step-3 for solution.
+		
+	*) In Step - 3, uncomment step - 3 and Comment only step - 4.
+		Since if the width of the screen is less than the given size we want the "right-column" to under "left-column". So both the left-column and right-column must occupy equal width.
+
+		Refresh the screen and the same. After 640px you will see the right-column coming under the left-column and both left and right are occupying 100% width.
+		
+	*) Finally there should be some point where we want to stop rendering to screen size that is even when the user reduces to a screen width we should not render the page. We will fix this by uncommneting Step - 4.
+		So when max-width is 320px then the container should be fixed to 320px width. Which means the screen less than 320px will have 320px CSS setting. 
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Responsive Desgin Tutorial</title>
+
+	<style type="text/css">
+
+	/* Step - 1: These are the basic css properties. */
+	#container {
+		width: 960px;
+		margin: 0 auto;
+	}
+
+	#left-column {
+		width: 700px; /* total width of container = 960; so 960 - 700 = 260 for right column. */
+		float: left;
+		background: blue;
+	}
+
+	#right-column {
+		width: 260px;
+		float: left;
+		background: orange;
+	}
+
+	/* Step - 2 */
+	@media screen and (max-width: 959px) {
+		#container {
+			width: 100%;
+		}
+
+		#left-column {
+			width: 70%;
+		}
+
+		#right-column {
+			width: 30%;
+		}
+
+		img {
+			width: 100%;
+		}
+	}
+
+	/* Step - 3 */
+	@media screen and (max-width: 640px) {
+		#left-column {
+			width: 100%;
+		}
+
+		#right-column {
+			width: 100%;
+		}
+	}
+
+	/* Step - 4 */
+	@media screen and (max-width: 320px) {
+		#container {
+			width: 320px;
+		}
+
+	}
+	</style>
+
+	<meta name="viewport" container="width=device-width", initial-scale="1.0">
+</head>
+<body>
+	<div id="container">
+		<img src="banner.jpg">
+		<section id="left-column">
+			This is the left column. We are going to try to make it responsive.
+		</section>
+		<aside id="right-column">
+			This is the right column. We are going to try to make it responsive.
+		</aside>
+	</div>
+</body>
+</html>

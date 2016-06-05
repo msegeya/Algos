@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="jquery-2.2.3.min.js"></script>
+
+	<script type="text/javascript">
+		// NOTE: Press F12 and check the DOM maupulations for understanding the detail.
+
+		$(document).ready(function() {
+			
+			// empty - Removes the child elemetns or contents of the selected element.	
+			$("#myEmpty").click(function() {
+				$(".hello").empty();
+			});
+			
+			/*
+				<div class="container">
+			  		<div class="hello"></div>
+			  		<div class="goodbye">Goodbye</div>
+				</div>			
+			*/
+
+			// remove will remove the element itself.
+			$("#myRemove").on('click', function() {
+				$(".hello").remove();
+			});
+			/*
+				<div class="container">
+			  		<div class="goodbye">Goodbye</div>
+				</div>			
+			*/	
+
+			// detach is same as remove but the difference is detach keeps copy of all the jQuery data associated with the removed elements.
+			// We can use this operation for toggle(show/hide) kinda operations.
+			$("#myDetach").bind('click', function() {
+				var data;
+				// NOTE: This method is not exactly working.
+				if($(".hello")) {
+					data = $(".hello").detach();
+					$(".hello").appendTo(null);
+				} else {
+					$(".hello").appendTo(data);
+				}
+			});
+			
+			$("#myReset").click(function() {
+				location.reload(true);
+			});
+		});
+
+	</script>
+
+</head>
+<body>
+	<div class="container">
+		<div>
+			<button id="myEmpty">Empty</button>
+			<button id="myRemove">Remove</button>
+			<button id="myDetach">Detach</button>
+			<button id="myReset">Reset</button>
+		</div>
+  		<div class="hello">Hello
+  			<div>amarnath</div>
+  		</div>
+  		<div class="goodbye">Goodbye</div>
+	</div>
+</body>
+</html>

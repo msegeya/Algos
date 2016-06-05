@@ -1,0 +1,66 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title> </title>
+		<script type="text/javascript" src="jquery-2.2.3.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				
+				// NOTE: Index starts from 0.
+
+				var count = $("div.questions").length;
+				alert("Total div elements with class questions = " + count);
+
+				// 1st div element with class questions.
+				$(".questions").first().css("background-color", "yellow");
+				
+				// last div element with class questions.
+				$(".questions").last().css("background-color", "yellow");
+				
+				// Get 4th element with class questions.
+				$(".questions").eq(3).css("background-color", "yellow");
+
+				// second element from last
+				var last_second = count - 2;
+				$(".questions").eq(last_second).css("background-color", "yellow");
+
+
+				// highlight all even elements
+				$(".rows_even_odd > .box:nth-child(even)").css("background-color", "yellow");
+
+				// highlight all odd rows with red
+				$(".rows_even_odd > .box:nth-child(odd)").css("background-color", "red");
+			});
+
+		</script>
+	</head>
+	<body>
+		<h1>Get 1st, 4th, 2nd from last, last with class questions.</h1>
+		<div class="rows">
+			<div class="questions">1 - div</div>
+			<div class="questions">2 - div</div>
+			<div class="questions">3 - div</div>
+			<div class="questions">4 - div</div>
+			<div class="questions">5 - div</div>
+			<div class="questions">6 - div</div>
+			<div class="questions">7 - div</div>
+			<div class="questions">8 - div</div>
+			<div class="questions">9 - div</div>
+			<div class="questions">10 - div</div>
+		</div>	
+
+		<h1>Highlight all even rows with yellow and all odd rows with red.</h1>
+		<div class="rows_even_odd">
+			<div class="box">1 - div</div>
+			<div class="box">2 - div</div>
+			<div class="box">3 - div</div>
+			<div class="box">4 - div</div>
+			<div class="box">5 - div</div>
+			<div class="box">6 - div</div>
+			<div class="box">7 - div</div>
+			<div class="box">8 - div</div>
+			<div class="box">9 - div</div>
+			<div class="box">10 - div</div>
+		</div>	
+	</body>
+</html>
